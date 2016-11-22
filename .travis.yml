@@ -9,6 +9,7 @@ cache:
   directories:
   - vendor
 before_script:
+  - export PATH=~/.composer/vendor/bin:$PATH
   - composer self-update
   - composer global require drupal/coder
   - composer global require "squizlabs/php_codesniffer=*"
