@@ -1,6 +1,9 @@
 SQweb Drupal Module
 ===
 
+[![Build Status](https://travis-ci.org/SQweb-team/SQweb-Drupal-Module.svg?branch=8.x-2.x)](https://travis-ci.org/SQweb-team/SQweb-Drupal-Module)
+[![Code Climate](https://codeclimate.com/github/SQweb-team/SQweb-Drupal-Module/badges/gpa.svg)](https://codeclimate.com/github/SQweb-team/SQweb-Drupal-Module)
+
 **This Module allows you to easily integrate SQweb on your Drupal powered website.**
 
 ##Requirements
@@ -11,7 +14,7 @@ We are unable to provide official support for earlier versions. For more informa
 
 ##Install
 
-Settings your SQweb Website ID and your language on your Drupal administration, on SQweb section. 
+Settings your SQweb Website ID and your language on your Drupal administration, on SQweb section.
 
 ##Usage
 
@@ -104,7 +107,7 @@ We welcome contributions and improvements.
 
 ###Coding Style
 
-All PHP code must conform to the [PSR2 Standard](http://www.php-fig.org/psr/psr-2/).
+All PHP code must conform to the [Drupal Coding Standards](https://www.drupal.org/docs/develop/standards/coding-standards).
 
 ##Bugs and Security Vulnerabilities
 
