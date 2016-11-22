@@ -119,7 +119,7 @@ class SQweb {
       if (isset($_COOKIE['sqw_z']) && NULL !== $this->SQW_ID_SITE) {
         $curl = curl_init();
         curl_setopt_array($curl, array(
-          CURLOPT_URL => 'https://api.SQweb.com/token/check',
+          CURLOPT_URL => 'https://api.sqweb.com/token/check',
           CURLOPT_RETURNTRANSFER => TRUE,
           CURLOPT_CONNECTTIMEOUT_MS => 1000,
           CURLOPT_TIMEOUT_MS => 1000,
@@ -157,7 +157,7 @@ class SQweb {
             msg: "' . $this->SQW_MESSAGE . '"};
             var script = document.createElement("script");
             script.type = "text/javascript";
-            script.src = "//cdn.sqweb.com/sqweb-beta.js";
+            script.src = "https://cdn.sqweb.com/sqweb.js";
             document.getElementsByTagName("head")[0].appendChild(script);';
     }
     return '';

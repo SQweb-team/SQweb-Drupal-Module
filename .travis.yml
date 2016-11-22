@@ -17,4 +17,4 @@ before_script:
   - phpcs --config-set installed_paths ~/.composer/vendor/drupal/coder/coder_sniffer
   - phpcs -i
 script:
-  - phpcs --standard=Drupal . --extensions=php,module,inc,install,test,profile,theme,css,info,txt,md
+  - phpcs --standard=Drupal . --extensions=php,module,inc,install,test,profile
