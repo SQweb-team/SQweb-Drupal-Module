@@ -1,0 +1,7 @@
+sqweb.settings:
+  path: '/admin/config/content/sqweb'
+  defaults:
+    _form: '\Drupal\sqweb\Form\SQwebSettingsForm'
+    _title: 'SQweb'
+  requirements:
+    _permission: 'administer site configuration'

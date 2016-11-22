@@ -1,0 +1,5 @@
+sqweb.settings:
+ title: 'SQweb'
+ parent: system.admin_config_content
+ route_name: sqweb.settings
+ weight: 10

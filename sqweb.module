@@ -1,0 +1,18 @@
+<?php
+
+use Drupal\sqweb\Lib\SQweb;
+
+function sqweb_page_attachments(&$page) {
+	$page['#attached']['html_head'][] = [
+		// The data.
+		[
+			'#type' => 'html_tag',
+			// The HTML tag to add, in this case a  tag.
+			'#tag' => 'script',
+			// The value of the HTML tag, here we want to end up with alert("Hello world!");.
+			'#value' => SQweb::script(),
+		],
+	// A key, to make it possible to recognize this HTML  element when altering.
+	'SQweb'
+	];
+}

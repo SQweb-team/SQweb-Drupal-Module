@@ -1,0 +1,5 @@
+services:
+  sqweb.twig_extension:
+    class: Drupal\sqweb\TwigExtension\SQwebExtension
+    tags:
+      - { name: twig.extension }
