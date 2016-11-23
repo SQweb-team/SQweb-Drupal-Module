@@ -199,6 +199,27 @@ class SQweb {
   }
 
   /**
+   * Private function for save all balise.
+   *
+   * @return array
+   *   Return array with all balise.
+   */
+  private function sqwBalise($balise, $match) {
+    if (preg_match('/<(\w+)(?(?!.+\/>).*>|$)/', $match, $tmp)) {
+      if (!isset($balise)) {
+        $balise = array();
+      }
+      $balise[] = $tmp[1];
+    }
+    foreach ($balise as $key => $value) {
+      if (preg_match('/<\/(.+)>/', $value, $tmp)) {
+        unset($balise[$key]);
+      }
+    }
+    return $balise;
+  }
+
+  /**
    * Function to call for filter a text with progressive opacity.
    *
    * @return text
