@@ -11,14 +11,20 @@ use Drupal\Core\Form\FormStateInterface;
 class SQwebSettingsForm extends ConfigFormBase {
 
   /**
-   * {@inheritdoc}
+   * This is the same name we used on the services.yml file.
+   *
+   * @return string
+   *   id of settings form
    */
   public function getFormId() {
     return 'sqweb_admin_settings';
   }
 
   /**
-   * {@inheritdoc}
+   * This is the same name we used on the services.yml file.
+   *
+   * @return string
+   *   config name ?
    */
   protected function getEditableConfigNames() {
     return [
@@ -27,7 +33,10 @@ class SQwebSettingsForm extends ConfigFormBase {
   }
 
   /**
-   * {@inheritdoc}
+   * Build form for SQweb admin on drupal.
+   *
+   * @return form
+   *   form admin SQweb
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
     $config = $this->config('sqweb.settings');
@@ -66,7 +75,7 @@ class SQwebSettingsForm extends ConfigFormBase {
   }
 
   /**
-   * {@inheritdoc}
+   * Check if value is good.
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
     if (!$form_state->getValue('sqw_id_site')) {
@@ -79,7 +88,7 @@ class SQwebSettingsForm extends ConfigFormBase {
   }
 
   /**
-   * {@inheritdoc}
+   * Save value after submit.
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $array = $form_state->getValues();
