@@ -66,7 +66,7 @@ class SQwebSettingsForm extends ConfigFormBase {
   }
 
   /**
-   *
+   * {@inheritdoc}
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
     if (!$form_state->getValue('sqw_id_site')) {
