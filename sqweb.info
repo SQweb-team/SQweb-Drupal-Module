@@ -1,0 +1,7 @@
+name = SQweb
+description = SQweb module for drupal.
+package = public-action
+core = 7.x
+files[] = sqweb.module
+
+configure = admin/config/content/sqweb

@@ -1,0 +1,383 @@
+<?php
+
+/**
+ * @file
+ * SQweb module.
+ */
+
+/**
+ * SQweb Object.
+ */
+class SQweb {
+  private $response;
+
+  private $sqwIdSite = 0;
+  private $sqwDebug = 'false';
+  private $sqwTarget = 'false';
+  private $sqwBeacon = 'false';
+  private $sqwDwide = 'false';
+  private $sqwLang = 'en';
+  private $sqwMessage = '';
+
+  public $abo = 0;
+
+  /**
+   * Initialize basic variable needed for SQweb worked.
+   */
+  public function __construct() {
+    $this->sqwIdSite = variable_get('sqw_id_site', 0);
+    $this->sqwDebug = 'false';
+    $this->sqwTarget = 'false';
+    $this->sqwBeacon = 'false';
+    $this->sqwDwide = 'false';
+    $this->sqwLang = variable_get('sqw_lang', 'en');
+    $this->sqwMessage = variable_get('sqw_message', '');
+    $this->abo = $this->checkCredits();
+  }
+
+  /**
+   * Singleton needed for simplify usage of SQweb.
+   *
+   * @return Objects
+   *   Return a SQweb objects.
+   */
+  public static function getInstance() {
+    static $instance = NULL;
+    if ($instance === NULL) {
+      $instance = new SQweb();
+    }
+    return $instance;
+  }
+
+  /**
+   * Static function to call for know if users is a Multipass subscribers.
+   *
+   * @return bool
+   *   If users is a multipass subscribers return true.
+   */
+  public static function abo() {
+    return SQweb::getInstance()->abo;
+  }
+
+  /**
+   * Static function to call for gettings the SQweb script.
+   *
+   * @return text
+   *   Return a SQweb script already settings.
+   */
+  public static function script() {
+    return SQweb::getInstance()->makeScript();
+  }
+
+  /**
+   * Static function to call for gettings multipass button HTML.
+   *
+   * @return text
+   *   Return a HTML contain a div with the Multipass button class.
+   */
+  public static function button($size = NULL) {
+    return SQweb::getInstance()->makeButton($size);
+  }
+
+  /**
+   * Static function to call for return string if users is a subscribers.
+   *
+   * @return text
+   *   Return given string if users is a subscribers or an empty string if not.
+   */
+  public static function isAbo($string) {
+    return SQweb::getInstance()->abo ? $string : '';
+  }
+
+  /**
+   * Static function to call for filter a text with progressive opacity.
+   *
+   * @return text
+   *   Return given string if users is a subscribers / an opacity string if not.
+   */
+  public static function transpartext($text, $percent = 100) {
+    return SQweb::getInstance()->transparent($text, $percent);
+  }
+
+  /**
+   * Static function to call for limit text by numbers of displayed.
+   *
+   * @return text
+   *   Return given string if users is a subscribers
+   *   or limit hasn't been exceeded
+   */
+  public static function limitArticle($string, $limitation = 0) {
+    return SQweb::getInstance()->plimitArticle($limitation) ? $string : '';
+  }
+
+  /**
+   * Static function to call for wait for display a text.
+   *
+   * @return text
+   *   Return given string if users is a subscribers
+   *   or waiting limit has been exceeded
+   */
+  public static function waitToDisplay($string, $date, $wait = 0) {
+    return SQweb::getInstance()->pwaitToDisplay($date, $wait) ? $string : '';
+  }
+
+  /**
+   * Function to call for gettings multipass button HTML.
+   *
+   * @return text
+   *   Return a HTML contain a div with the Multipass button class.
+   */
+  public function makeButton($size = NULL) {
+    if ($size === 'tiny') {
+      return '<div class="sqweb-button multipass-tiny"></div>';
+    }
+    elseif ($size === 'slim') {
+      return '<div class="sqweb-button multipass-slim"></div>';
+    }
+    elseif ($size === 'large') {
+      return '<div class="sqweb-button multipass-large"></div>';
+    }
+    // multipass-regular.
+    else {
+      return '<div class="sqweb-button"></div>';
+    }
+  }
+
+  /**
+   * Function to call for know if users is a Multipass subscribers.
+   *
+   * @return bool
+   *   If users is a multipass subscribers return true.
+   */
+  public function checkCredits() {
+    if (empty($this->response)) {
+      if (isset($_COOKIE['sqw_z']) && NULL !== $this->SQW_ID_SITE) {
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+          CURLOPT_URL => 'https://api.sqweb.com/token/check',
+          CURLOPT_RETURNTRANSFER => TRUE,
+          CURLOPT_CONNECTTIMEOUT_MS => 1000,
+          CURLOPT_TIMEOUT_MS => 1000,
+          CURLOPT_USERAGENT => 'SQweb/Drupal 1.0',
+          CURLOPT_POSTFIELDS => array(
+            'token' => $_COOKIE['sqw_z'],
+            'site_id' => $this->SQW_ID_SITE,
+          ),
+        ));
+        $response = curl_exec($curl);
+        curl_close($curl);
+
+        $this->response = json_decode($response);
+      }
+    }
+    if ($this->response !== NULL && $this->response->status === TRUE && $this->response->credit > 0) {
+      return $this->response->credit;
+    }
+    return 0;
+  }
+
+  /**
+   * Function to call for gettings the SQweb script.
+   *
+   * @return text
+   *   Return a SQweb script already settings if Id Site > 0.
+   */
+  public function makeScript() {
+    if ($this->sqwIdSite) {
+      return '
+	var _sqw = {
+		id_site: ' . $this->sqwIdSite . ',
+		debug: ' . $this->sqwDebug . ',
+		targeting: ' . $this->sqwTarget . ',
+		beacon: ' . $this->sqwBeacon . ',
+		dwide: ' . $this->sqwDwide . ',
+		i18n: "' . $this->sqwLang . '",
+		msg: "' . $this->sqwMessage . '"};
+	var script = document.createElement("script");
+	script.type = "text/javascript";
+	script.src = "//cdn.sqweb.com/sqweb-beta.js";
+	document.getElementsByTagName("head")[0].appendChild(script);';
+    }
+    return '';
+  }
+
+  /**
+   * Private function for save all balise.
+   *
+   * @return array
+   *   Return array with all balise.
+   */
+  private function sqwBalise($balise, $match) {
+    if (preg_match('/<(\w+)(?(?!.+\/>).*>|$)/', $match, $tmp)) {
+      if (!isset($balise)) {
+        $balise = array();
+      }
+      $balise[] = $tmp[1];
+    }
+    foreach ($balise as $key => $value) {
+      if (preg_match('/<\/(.+)>/', $value, $tmp)) {
+        unset($balise[$key]);
+      }
+    }
+    return $balise;
+  }
+
+  /**
+   * Function to call for filter a text with progressive opacity.
+   *
+   * @return text
+   *   Return given string if users is a subscribers / an opacity string if not.
+   */
+  public function transparent($text, $percent = 100) {
+    if ($this->abo === 1 || $percent == 100 || empty($text)) {
+      return $text;
+    }
+    if ($percent == 0) {
+      return '';
+    }
+    $arr_txt = preg_split('/(<.+?><\/.+?>)|(<.+?>)|( )/', $text, 0, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
+    foreach (array_keys($arr_txt, ' ', TRUE) as $key) {
+      unset($arr_txt[$key]);
+    }
+    $arr_txt = array_values($arr_txt);
+    $words = count($arr_txt);
+    $nbr = ceil($words / 100 * $percent);
+    $lambda = (1 / $nbr);
+    $alpha = 1;
+    $begin = 0;
+    $balise = array();
+    while ($begin < $nbr) {
+      if (isset($arr_txt[$begin + 1])) {
+        if (preg_match('/<.+?>/', $arr_txt[$begin], $match)) {
+          $balise = $this->sqwBalise($balise, $match[0]);
+          $final[] = $arr_txt[$begin];
+          $nbr++;
+        }
+        else {
+          $tmp = number_format($alpha, 5, '.', '');
+          $final[] = '<span style="opacity: ' . $tmp . '">' . $arr_txt[$begin] . '</span>';
+          $alpha -= $lambda;
+        }
+      }
+      $begin++;
+    }
+    foreach ($balise as $value) {
+      $final[] = '</' . $value . '>';
+    }
+    $final = implode(' ', $final);
+    return $final;
+  }
+
+  /**
+   * Function to call for limit text by numbers of displayed.
+   *
+   * @return text
+   *   Return given string if users is a subscribers
+   *   or limit hasn't been exceeded
+   */
+  public function plimitArticle($limitation = 0) {
+    if ($this->abo === 0 && $limitation != 0) {
+      if (!isset($_COOKIE['sqwBlob']) || (isset($_COOKIE['sqwBlob']) && $_COOKIE['sqwBlob'] != -7610679)) {
+        $ip2 = ip2long(ip_address());
+        if (!isset($_COOKIE['sqwBlob'])) {
+          $sqwBlob = 1;
+        }
+        else {
+          $sqwBlob = ($_COOKIE['sqwBlob'] / 2) - $ip2 - 2 + 1;
+        }
+        if ($limitation > 0 && $sqwBlob <= $limitation) {
+          $tmp = ($sqwBlob + $ip2 + 2) * 2;
+          setcookie('sqwBlob', $tmp, time() + 60 * 60 * 24);
+          return TRUE;
+        }
+        else {
+          setcookie('sqwBlob', -7610679, time() + 60 * 60 * 24);
+        }
+      }
+      return FALSE;
+    }
+    else {
+      return TRUE;
+    }
+  }
+
+  /**
+   * Function to call for wait for display a text.
+   *
+   * @return text
+   *   Return given string if users is a subscribers
+   *   or waiting limit has been exceeded
+   */
+  public function pwaitToDisplay($date, $wait = 0) {
+    if ($wait == 0 || $this->abo === 1) {
+      return TRUE;
+    }
+    $date = date_create($date);
+    $now = date_create('now');
+    date_modify($now, '-' . $wait . ' days');
+    return $date < $now;
+  }
+
+}
+
+/**
+ * Add JS to bottom of website.
+ */
+function sqweb_preprocess_page() {
+  drupal_add_js(SQweb::script(), array('type' => 'inline', 'scope' => 'footer'));
+}
+
+/**
+ * Add menu SQweb to admin of Drupal.
+ */
+function sqweb_menu() {
+  $items = array();
+
+  $items['admin/config/system/sqweb'] = array(
+    'title' => 'SQweb',
+    'description' => 'Configuration of SQweb',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('sqweb_form'),
+    'access arguments' => array('access administration pages'),
+    'type' => MENU_NORMAL_ITEM,
+  );
+
+  return $items;
+}
+
+/**
+ * Add form to SQweb admin.
+ */
+function sqweb_form($form, &$form_state) {
+  $form['sqw_id_site'] = array(
+    '#type' => 'textfield',
+    '#title' => t('ID Site'),
+    '#default_value' => variable_get('sqw_id_site', 0),
+    '#size' => 8,
+    '#maxlength' => 8,
+    '#description' => t('The ID site given on SQweb'),
+    '#required' => TRUE,
+  );
+
+  $form['sqw_lang'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Lang'),
+    '#default_value' => variable_get('sqw_lang', 'en'),
+    '#size' => 2,
+    '#maxlength' => 2,
+    '#description' => t('Lang of your website (exemple : en, fr, es)'),
+    '#required' => TRUE,
+  );
+
+  $form['sqw_message'] = array(
+    '#type' => 'textarea',
+    '#title' => t('Message to display at Adblockers'),
+    '#default_value' => variable_get('sqw_message', ''),
+    '#size' => 50,
+    '#maxlength' => 255,
+    '#description' => t('That displayed an message to adblockers on bottom of your website, empty if you want disable'),
+    '#required' => FALSE,
+  );
+
+  return system_settings_form($form);
+}
