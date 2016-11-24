@@ -8,32 +8,35 @@ namespace Drupal\sqweb\Lib;
 class SQweb {
   private $response;
 
-  private $SQW_ID_SITE = 0;
-  private $SQW_DEBUG = 'false';
-  private $SQW_TARGETING = 'false';
-  private $SQW_BEACON = 'false';
-  private $SQW_DWIDE = 'false';
-  private $SQW_LANG = 'en';
-  private $SQW_MESSAGE = '';
+  private $sqwIdSite = 0;
+  private $sqwDebug = 'false';
+  private $sqwTargeting = 'false';
+  private $sqwBeacon = 'false';
+  private $sqwDwide = 'false';
+  private $sqwLang = 'en';
+  private $sqwMessage = '';
 
   public $abo = 0;
 
   /**
-   *
+   * Initialize basic variable needed for SQweb worked.
    */
   public function __construct() {
-    $this->SQW_ID_SITE = \Drupal::config('sqweb.settings')->get('sqw_id_site');
-    $this->SQW_DEBUG = 'false';
-    $this->SQW_TARGETING = 'false';
-    $this->SQW_BEACON = 'false';
-    $this->SQW_DWIDE = 'false';
-    $this->SQW_LANG = \Drupal::config('sqweb.settings')->get('sqw_lang');
-    $this->SQW_MESSAGE = \Drupal::config('sqweb.settings')->get('sqw_message');
+    $this->sqwIdSite = \Drupal::config('sqweb.settings')->get('sqw_id_site');
+    $this->sqwDebug = 'false';
+    $this->sqwTargeting = 'false';
+    $this->sqwBeacon = 'false';
+    $this->sqwDwide = 'false';
+    $this->sqwLang = \Drupal::config('sqweb.settings')->get('sqw_lang');
+    $this->sqwMessage = \Drupal::config('sqweb.settings')->get('sqw_message');
     $this->abo = $this->checkCredits();
   }
 
   /**
+   * Singleton needed for simplify usage of SQweb.
    *
+   * @return Objects
+   *   Return a SQweb objects.
    */
   public static function getInstance() {
     static $instance = NULL;
@@ -44,56 +47,82 @@ class SQweb {
   }
 
   /**
+   * Static function to call for know if users is a Multipass subscribers.
    *
+   * @return bool
+   *   If users is a multipass subscribers return true.
    */
   public static function abo() {
     return SQweb::getInstance()->abo;
   }
 
   /**
+   * Static function to call for gettings the SQweb script.
    *
+   * @return text
+   *   Return a SQweb script already settings.
    */
   public static function script() {
     return SQweb::getInstance()->makeScript();
   }
 
   /**
+   * Static function to call for gettings multipass button HTML.
    *
+   * @return text
+   *   Return a HTML contain a div with the Multipass button class.
    */
   public static function button($size = NULL) {
     return SQweb::getInstance()->makeButton($size);
   }
 
   /**
+   * Static function to call for return string if users is a subscribers.
    *
+   * @return text
+   *   Return given string if users is a subscribers or an empty string if not.
    */
   public static function isAbo($string) {
     return SQweb::getInstance()->abo ? $string : '';
   }
 
   /**
+   * Static function to call for filter a text with progressive opacity.
    *
+   * @return text
+   *   Return given string if users is a subscribers / an opacity string if not.
    */
-  public static function Transpartext($text, $percent = 100) {
+  public static function transpartext($text, $percent = 100) {
     return SQweb::getInstance()->transparent($text, $percent);
   }
 
   /**
+   * Static function to call for limit text by numbers of displayed.
    *
+   * @return text
+   *   Return given string if users is a subscribers
+   *   or limit hasn't been exceeded
    */
   public static function limitArticle($string, $limitation = 0) {
-    return SQweb::getInstance()->_limitArticle($limitation) ? $string : '';
+    return SQweb::getInstance()->plimitArticle($limitation) ? $string : '';
   }
 
   /**
+   * Static function to call for wait for display a text.
    *
+   * @return text
+   *   Return given string if users is a subscribers
+   *   or waiting limit has been exceeded
    */
   public static function waitToDisplay($string, $date, $wait = 0) {
-    return SQweb::getInstance()->_waitToDisplay($date, $wait) ? $string : '';
+    return SQweb::getInstance()->pwaitToDisplay($date, $wait) ? $string : '';
   }
 
   /**
+   * Function to call for gettings multipass button HTML.
    *
+   * @return text
+   *   Return a HTML contain a div with the Multipass button class.
    */
   public function makeButton($size = NULL) {
     if ($size === 'tiny') {
@@ -112,11 +141,14 @@ class SQweb {
   }
 
   /**
+   * Function to call for know if users is a Multipass subscribers.
    *
+   * @return bool
+   *   If users is a multipass subscribers return true.
    */
   public function checkCredits() {
     if (empty($this->response)) {
-      if (isset($_COOKIE['sqw_z']) && NULL !== $this->SQW_ID_SITE) {
+      if (isset($_COOKIE['sqw_z']) && NULL !== $this->sqwIdSite) {
         $curl = curl_init();
         curl_setopt_array($curl, array(
           CURLOPT_URL => 'https://api.sqweb.com/token/check',
@@ -126,7 +158,7 @@ class SQweb {
           CURLOPT_USERAGENT => 'SQweb/Drupal 1.0',
           CURLOPT_POSTFIELDS => array(
             'token' => $_COOKIE['sqw_z'],
-            'site_id' => $this->SQW_ID_SITE,
+            'site_id' => $this->sqwIdSite,
           ),
         ));
         $response = curl_exec($curl);
@@ -142,19 +174,22 @@ class SQweb {
   }
 
   /**
+   * Function to call for gettings the SQweb script.
    *
+   * @return text
+   *   Return a SQweb script already settings if Id Site > 0.
    */
   public function makeScript() {
-    if ($this->SQW_ID_SITE) {
+    if ($this->sqwIdSite) {
       return '
             var _sqw = {
-            id_site: ' . $this->SQW_ID_SITE . ',
-            debug: ' . $this->SQW_DEBUG . ',
-            targeting: ' . $this->SQW_TARGETING . ',
-            beacon: ' . $this->SQW_BEACON . ',
-            dwide: ' . $this->SQW_DWIDE . ',
-            i18n: "' . $this->SQW_LANG . '",
-            msg: "' . $this->SQW_MESSAGE . '"};
+            id_site: ' . $this->sqwIdSite . ',
+            debug: ' . $this->sqwDebug . ',
+            targeting: ' . $this->sqwTargeting . ',
+            beacon: ' . $this->sqwBeacon . ',
+            dwide: ' . $this->sqwDwide . ',
+            i18n: "' . $this->sqwLang . '",
+            msg: "' . $this->sqwMessage . '"};
             var script = document.createElement("script");
             script.type = "text/javascript";
             script.src = "https://cdn.sqweb.com/sqweb.js";
@@ -164,7 +199,31 @@ class SQweb {
   }
 
   /**
+   * Private function for save all balise.
    *
+   * @return array
+   *   Return array with all balise.
+   */
+  private function sqwBalise($balise, $match) {
+    if (preg_match('/<(\w+)(?(?!.+\/>).*>|$)/', $match, $tmp)) {
+      if (!isset($balise)) {
+        $balise = array();
+      }
+      $balise[] = $tmp[1];
+    }
+    foreach ($balise as $key => $value) {
+      if (preg_match('/<\/(.+)>/', $value, $tmp)) {
+        unset($balise[$key]);
+      }
+    }
+    return $balise;
+  }
+
+  /**
+   * Function to call for filter a text with progressive opacity.
+   *
+   * @return text
+   *   Return given string if users is a subscribers / an opacity string if not.
    */
   public function transparent($text, $percent = 100) {
     if ($this->abo === 1 || $percent == 100 || empty($text)) {
@@ -207,12 +266,16 @@ class SQweb {
   }
 
   /**
+   * Function to call for limit text by numbers of displayed.
    *
+   * @return text
+   *   Return given string if users is a subscribers
+   *   or limit hasn't been exceeded
    */
-  public function _limitArticle($limitation = 0) {
+  public function plimitArticle($limitation = 0) {
     if ($this->abo === 0 && $limitation != 0) {
       if (!isset($_COOKIE['sqwBlob']) || (isset($_COOKIE['sqwBlob']) && $_COOKIE['sqwBlob'] != -7610679)) {
-        $ip2 = ip2long($_SERVER['REMOTE_ADDR']);
+        $ip2 = ip2long(ip_address());
         if (!isset($_COOKIE['sqwBlob'])) {
           $sqwBlob = 1;
         }
@@ -236,9 +299,13 @@ class SQweb {
   }
 
   /**
+   * Function to call for wait for display a text.
    *
+   * @return text
+   *   Return given string if users is a subscribers
+   *   or waiting limit has been exceeded
    */
-  public function _waitToDisplay($date, $wait = 0) {
+  public function pwaitToDisplay($date, $wait = 0) {
     if ($wait == 0 || $this->abo === 1) {
       return TRUE;
     }
