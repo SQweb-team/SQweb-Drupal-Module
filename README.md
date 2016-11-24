@@ -2,7 +2,6 @@ SQweb Drupal Module
 ===
 
 [![Build Status](https://travis-ci.org/SQweb-team/SQweb-Drupal-Module.svg?branch=8.x-2.x)](https://travis-ci.org/SQweb-team/SQweb-Drupal-Module)
-[![Code Climate](https://codeclimate.com/github/SQweb-team/SQweb-Drupal-Module/badges/gpa.svg)](https://codeclimate.com/github/SQweb-team/SQweb-Drupal-Module)
 
 **This Module allows you to easily integrate SQweb on your Drupal powered website.**
 
@@ -20,11 +19,11 @@ Settings your SQweb Website ID and your language on your Drupal administration, 
 
 ###1. Tagging your pages
 
-The SQweb script is add to all your pages after you configure your SQweb Website ID (Ref: Install).
+The SQweb script is added to all your pages after you configure your SQweb Website ID (Ref: Install).
 
 ###2. Checking the credits of your subscribers
 
-SQweb add a lot of filter and function to Twig for simplify usage of sqweb in your Theme.
+SQweb extends Twig with filters and functions to simplify the use of SQweb within your theme.
 
 Use it like this:
 
@@ -44,7 +43,7 @@ Finally, use this code to display the Multipass button on your pages:
 {{ sqw_button() }}
 ```
 
-If you want to use a smaller version of the Multipass button, you can by using this line:
+If you want to use a smaller version of the Multipass button :
 
 ```php
 {{ sqw_button('slim') }}
@@ -72,7 +71,7 @@ Will display for free users:
 one two
 ```
 
-#### Display your content later for non paying users
+#### Display your content later to non paying users
 
 ```php
 {{ 'Your content' | sqw_waittodisplay(publication_date, wait) }}

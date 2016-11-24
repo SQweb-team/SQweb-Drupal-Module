@@ -3,7 +3,7 @@
 namespace Drupal\sqweb\TwigExtension;
 
 /**
- * Extension of Twig for SQweb.
+ * Extenden Twig for SQweb.
  */
 class SQwebExtension extends \Twig_Extension {
 
@@ -21,7 +21,7 @@ class SQwebExtension extends \Twig_Extension {
       ),
       new \Twig_SimpleFunction('sqw_button',
                     array('Drupal\sqweb\Lib\SQweb', 'Button'),
-    // Function can display HTML.
+                    // Function can display HTML.
                     array('is_safe' => array('html'))
       ),
     );

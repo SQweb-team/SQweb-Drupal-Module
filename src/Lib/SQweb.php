@@ -19,7 +19,7 @@ class SQweb {
   public $abo = 0;
 
   /**
-   * Initialize basic variable needed for SQweb worked.
+   * Initialize basic variables required by SQweb.
    */
   public function __construct() {
     $this->sqwIdSite = \Drupal::config('sqweb.settings')->get('sqw_id_site');
@@ -33,7 +33,7 @@ class SQweb {
   }
 
   /**
-   * Singleton needed for simplify usage of SQweb.
+   * Singleton needed to simplify the use of SQweb.
    *
    * @return Objects
    *   Return a SQweb objects.
@@ -47,27 +47,27 @@ class SQweb {
   }
 
   /**
-   * Static function to call for know if users is a Multipass subscribers.
+   * Static function to call to know whether the user is a Multipass subscriber.
    *
    * @return bool
-   *   If users is a multipass subscribers return true.
+   *   Will return true if user is a Multipass subscriber.
    */
   public static function abo() {
     return SQweb::getInstance()->abo;
   }
 
   /**
-   * Static function to call for gettings the SQweb script.
+   * Get the SQweb script.
    *
    * @return text
-   *   Return a SQweb script already settings.
+   *   Return a SQweb script with its configuration.
    */
   public static function script() {
     return SQweb::getInstance()->makeScript();
   }
 
   /**
-   * Static function to call for gettings multipass button HTML.
+   * Get the Multipass button HTML.
    *
    * @return text
    *   Return a HTML contain a div with the Multipass button class.
@@ -80,27 +80,27 @@ class SQweb {
    * Static function to call for return string if users is a subscribers.
    *
    * @return text
-   *   Return given string if users is a subscribers or an empty string if not.
+   *   Return given string if user is a subscriber or an empty string if not.
    */
   public static function isAbo($string) {
     return SQweb::getInstance()->abo ? $string : '';
   }
 
   /**
-   * Static function to call for filter a text with progressive opacity.
+   * Static function to call to filter a text with progressive opacity.
    *
    * @return text
-   *   Return given string if users is a subscribers / an opacity string if not.
+   *   Return given string if user is a subscriber / an opacity string if not.
    */
   public static function transpartext($text, $percent = 100) {
     return SQweb::getInstance()->transparent($text, $percent);
   }
 
   /**
-   * Static function to call for limit text by numbers of displayed.
+   * Static function to call to limit text by numbers of displayed.
    *
    * @return text
-   *   Return given string if users is a subscribers
+   *   Return given string if user is a subscriber
    *   or limit hasn't been exceeded
    */
   public static function limitArticle($string, $limitation = 0) {
@@ -108,10 +108,10 @@ class SQweb {
   }
 
   /**
-   * Static function to call for wait for display a text.
+   * Static function to call to wait for display a text.
    *
    * @return text
-   *   Return given string if users is a subscribers
+   *   Return given string if user is a subscriber
    *   or waiting limit has been exceeded
    */
   public static function waitToDisplay($string, $date, $wait = 0) {
@@ -119,10 +119,10 @@ class SQweb {
   }
 
   /**
-   * Function to call for gettings multipass button HTML.
+   * Function to call to get Multipass button HTML.
    *
    * @return text
-   *   Return a HTML contain a div with the Multipass button class.
+   *   Return a HTML container for the Multipass button.
    */
   public function makeButton($size = NULL) {
     if ($size === 'tiny') {
@@ -141,10 +141,10 @@ class SQweb {
   }
 
   /**
-   * Function to call for know if users is a Multipass subscribers.
+   * Function to call to know if a user is a Multipass subscriber.
    *
    * @return bool
-   *   If users is a multipass subscribers return true.
+   *   If user is a Multipass subscriber return true.
    */
   public function checkCredits() {
     if (empty($this->response)) {
@@ -177,7 +177,7 @@ class SQweb {
    * Function to call for gettings the SQweb script.
    *
    * @return text
-   *   Return a SQweb script already settings if Id Site > 0.
+   *   Return a SQweb script already set if Id Site > 0.
    */
   public function makeScript() {
     if ($this->sqwIdSite) {
@@ -199,7 +199,7 @@ class SQweb {
   }
 
   /**
-   * Private function for save all balise.
+   * Private function to save all balise.
    *
    * @return array
    *   Return array with all balise.
@@ -266,10 +266,10 @@ class SQweb {
   }
 
   /**
-   * Function to call for limit text by numbers of displayed.
+   * Function to call to limit text by numbers of displayed.
    *
    * @return text
-   *   Return given string if users is a subscribers
+   *   Return given string if users is a subscriber
    *   or limit hasn't been exceeded
    */
   public function plimitArticle($limitation = 0) {
@@ -299,7 +299,7 @@ class SQweb {
   }
 
   /**
-   * Function to call for wait for display a text.
+   * Function to call to wait for display a text.
    *
    * @return text
    *   Return given string if users is a subscribers
