@@ -1,7 +1,9 @@
-SQweb Drupal Module
+SQweb Drupal 7 Module
 ===
 
-**This Module allows you to easily integrate SQweb on your Drupal powered website.**
+[![Build Status](https://travis-ci.org/SQweb-team/SQweb-Drupal-Module.svg?branch=7.x-1.x)](https://travis-ci.org/SQweb-team/SQweb-Drupal-Module)
+
+**This Module allows you to easily integrate SQweb on your Drupal v7 powered website.**
 
 ##Requirements
 
@@ -11,7 +13,7 @@ We are unable to provide official support for earlier versions. For more informa
 
 ##Install
 
-Settings your SQweb Website ID and your language on your Drupal administration, on SQweb section. 
+Set your SQweb Website ID and your language on your Drupal administration, in the SQweb section. 
 
 ##Usage
 
@@ -21,7 +23,7 @@ The SQweb script is add to all your pages after you configure your SQweb Website
 
 ###2. Checking the credits of your subscribers
 
-SQweb add a lot of filter and function to Twig for simplify usage of sqweb in your Theme.
+SQweb extends Twig with filters and functions to simplify the use of SQweb within your theme.
 
 Use it like this:
 
@@ -41,7 +43,7 @@ Finally, use this code to display the Multipass button on your pages:
 <?php echo SQweb::button(); ?>
 ```
 
-If you want to use a smaller version of the Multipass button, you can by using this line:
+If you want to use a smaller version of the Multipass button:
 
 ```php
 <?php echo SQweb::button('slim'); ?>
@@ -69,7 +71,7 @@ Will display for free users:
 one two
 ```
 
-#### Display your content later for non paying users
+#### Display your content later to non paying users
 
 ```php
 <?php SQweb::waitToDisplay('Your content', publication_date, wait); ?>
@@ -104,7 +106,7 @@ We welcome contributions and improvements.
 
 ###Coding Style
 
-All PHP code must conform to the [PSR2 Standard](http://www.php-fig.org/psr/psr-2/).
+All PHP code must conform to the [Drupal Coding Standards](https://www.drupal.org/docs/develop/standards/coding-standards).
 
 ##Bugs and Security Vulnerabilities
 
