@@ -1,0 +1,29 @@
+language:
+- php
+php:
+- 5.5
+- 5.6
+- 7.0
+cache:
+  directories:
+  - vendor
+before_script:
+  - export PATH=~/.composer/vendor/bin:$PATH
+  - composer self-update
+  - composer global require drupal/coder
+  - composer global require "squizlabs/php_codesniffer=*"
+  - phpenv rehash
+  - phpcs --config-set installed_paths ~/.composer/vendor/drupal/coder/coder_sniffer
+  - phpcs -i
+script:
+  - phpcs --standard=Drupal . --extensions=php,module,inc,install,test,profile
+  - phpcs --standard=DrupalPractice . --extensions=php,module,inc,install,test,profile
+notifications:
+  email: false
+  slack:
+    matrix:
+    - nwork:g1c5FQpTcE9ZxPTAPdHsUwPr
+    rooms:
+      secure: ze4ADG1a+UABICAhmGe4RJiN9w3rUh0FkSX+ovHtfF1UqupYwfNybZwxlpwgjJJN7QFdx26LOYPKDvuD8tdUuesa06DvY7hmCWn7+12RqE56cLRm+zaCDbIDRXfvcRRZadvP/Ny9e43pIb3WiqybYF6ZiyPyhdG/N7mjtksUEVLk+2oJ63IjN8/6+zqXOvJ4d/Bk7NedQ/UZTnI1KT78dxxnp+s4zq2xl4jnFszTzNcg1sF5C47xOnazIh2wdRpXb9XMqpYk62u+1jULAqPdNTstzKCFFxnhIg3T4AKAb3tODuEU9UjXXuklnx/+Ldq/Yf1vxDZrUMQlsL+AFl+rB9Qbtr22cfAwmGGCK41E5ehGK5D9DUpO5lJkMxGYcv0bOSRo6gCqo3MQ4kvYF1RJIrCpEjYpLNswx4hSpFfp9YS3MFZD7By0FPXLybj2LQI4O4BIRWCJo0eF4c7XWaXS2LSBCZmzzLacLJDBxjSDAbWSuyuuEWnsMkERaqS7zNuaDGoUMRp9TeJVuQzrZxcWaPfBl74wx+IHHcUqRD37QLHPdXlPSZYpY6kxJ25qCqBeyziY1AL6nyD11cgT6xBp9gMBCWmNvo6n5C3Q5aSyuC42tvhaQXpa7f63Q/uCiTUUN00a7niyh6bm93dM5btXk0uQpD5Hy1TorEkCf4gyMbQ=
+git:
+  depth: 2

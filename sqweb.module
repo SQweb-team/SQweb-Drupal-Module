@@ -22,7 +22,7 @@ class SQweb {
   public $abo = 0;
 
   /**
-   * Initialize basic variable needed for SQweb worked.
+   * Initialize basic variables required for SQweb to work.
    */
   public function __construct() {
     $this->sqwIdSite = variable_get('sqw_id_site', 0);
@@ -36,7 +36,7 @@ class SQweb {
   }
 
   /**
-   * Singleton needed for simplify usage of SQweb.
+   * Singleton needed to simplify usage of SQweb.
    *
    * @return Objects
    *   Return a SQweb objects.
@@ -50,7 +50,7 @@ class SQweb {
   }
 
   /**
-   * Static function to call for know if users is a Multipass subscribers.
+   * Static function to call to know if users is a Multipass subscribers.
    *
    * @return bool
    *   If users is a multipass subscribers return true.
@@ -60,7 +60,7 @@ class SQweb {
   }
 
   /**
-   * Static function to call for gettings the SQweb script.
+   * Static function to call to get the SQweb script.
    *
    * @return text
    *   Return a SQweb script already settings.
