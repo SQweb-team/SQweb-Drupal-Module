@@ -57,7 +57,7 @@ class SQwebSettingsForm extends ConfigFormBase {
       '#default_value' => $config->get('sqw_lang'),
       '#size' => 2,
       '#maxlength' => 2,
-      '#description' => $this->t('Lang of your website (exemple : en, fr, es)'),
+      '#description' => $this->t('Lang of your website (example : en, fr, es)'),
       '#required' => TRUE,
     );
 
