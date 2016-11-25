@@ -43,31 +43,31 @@ class SQwebSettingsForm extends ConfigFormBase {
 
     $form['sqw_id_site'] = array(
       '#type' => 'textfield',
-      '#title' => t('ID Site'),
+      '#title' => $this->t('ID Site'),
       '#default_value' => $config->get('sqw_id_site'),
       '#size' => 8,
       '#maxlength' => 8,
-      '#description' => t('The ID site given on SQweb'),
+      '#description' => $this->t('The ID site given on SQweb'),
       '#required' => TRUE,
     );
 
     $form['sqw_lang'] = array(
       '#type' => 'textfield',
-      '#title' => t('Lang'),
+      '#title' => $this->t('Lang'),
       '#default_value' => $config->get('sqw_lang'),
       '#size' => 2,
       '#maxlength' => 2,
-      '#description' => t('Lang of your website (exemple : en, fr, es)'),
+      '#description' => $this->t('Lang of your website (exemple : en, fr, es)'),
       '#required' => TRUE,
     );
 
     $form['sqw_message'] = array(
       '#type' => 'textarea',
-      '#title' => t('Message to display at Adblockers'),
+      '#title' => $this->t('Message to display at Adblockers'),
       '#default_value' => $config->get('sqw_message'),
       '#size' => 50,
       '#maxlength' => 255,
-      '#description' => t('That displayed an message to adblockers on bottom of your website, empty if you want disable'),
+      '#description' => $this->t('That displayed an message to adblockers on bottom of your website, empty if you want disable'),
       '#required' => FALSE,
     );
 
