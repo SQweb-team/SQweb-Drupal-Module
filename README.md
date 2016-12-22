@@ -49,6 +49,10 @@ If you want to use a smaller version of the Multipass button :
 {{ sqw_button('slim') }}
 ```
 
+Here is a complete list of sizes :
+
+![Example Buttons](https://cdn.multipass.net/github/buttons@2x.png "Example Buttons")
+
 ###4. More functions
 
 
