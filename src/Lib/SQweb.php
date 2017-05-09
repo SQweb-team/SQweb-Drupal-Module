@@ -152,17 +152,17 @@ class SQweb {
     if (empty($this->response)) {
       if (isset($_COOKIE['sqw_z']) && NULL !== $this->sqwIdSite) {
         $curl = curl_init();
-        curl_setopt_array($curl, array(
+        curl_setopt_array($curl, [
           CURLOPT_URL => 'https://api.sqweb.com/token/check',
           CURLOPT_RETURNTRANSFER => TRUE,
           CURLOPT_CONNECTTIMEOUT_MS => 1000,
           CURLOPT_TIMEOUT_MS => 1000,
           CURLOPT_USERAGENT => 'SQweb/Drupal 1.1',
-          CURLOPT_POSTFIELDS => array(
+          CURLOPT_POSTFIELDS => [
             'token' => $_COOKIE['sqw_z'],
             'site_id' => $this->sqwIdSite,
-          ),
-        ));
+          ],
+        ]);
         $response = curl_exec($curl);
         curl_close($curl);
 
@@ -210,7 +210,7 @@ class SQweb {
   private function sqwBalise($balise, $match) {
     if (preg_match('/<(\w+)(?(?!.+\/>).*>|$)/', $match, $tmp)) {
       if (!isset($balise)) {
-        $balise = array();
+        $balise = [];
       }
       $balise[] = $tmp[1];
     }
@@ -245,7 +245,7 @@ class SQweb {
     $lambda = (1 / $nbr);
     $alpha = 1;
     $begin = 0;
-    $balise = array();
+    $balise = [];
     while ($begin < $nbr) {
       if (isset($arr_txt[$begin + 1])) {
         if (preg_match('/<.+?>/', $arr_txt[$begin], $match)) {
