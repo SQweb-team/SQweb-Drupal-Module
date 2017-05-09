@@ -10,6 +10,7 @@ class SQweb {
 
   private $sqwIdSite = 0;
   private $sqwDebug = 'false';
+  private $sqwAdblockModal = 'false';
   private $sqwTargeting = 'false';
   private $sqwBeacon = 'false';
   private $sqwDwide = 'false';
@@ -24,6 +25,7 @@ class SQweb {
   public function __construct() {
     $this->sqwIdSite = \Drupal::config('sqweb.settings')->get('sqw_id_site');
     $this->sqwDebug = 'false';
+    $this->sqwAdblockModal = 'false';
     $this->sqwTargeting = 'false';
     $this->sqwBeacon = 'false';
     $this->sqwDwide = 'false';
@@ -155,7 +157,7 @@ class SQweb {
           CURLOPT_RETURNTRANSFER => TRUE,
           CURLOPT_CONNECTTIMEOUT_MS => 1000,
           CURLOPT_TIMEOUT_MS => 1000,
-          CURLOPT_USERAGENT => 'SQweb/Drupal 1.0',
+          CURLOPT_USERAGENT => 'SQweb/Drupal 1.1',
           CURLOPT_POSTFIELDS => array(
             'token' => $_COOKIE['sqw_z'],
             'site_id' => $this->sqwIdSite,
@@ -185,6 +187,7 @@ class SQweb {
             var _sqw = {
             id_site: ' . $this->sqwIdSite . ',
             debug: ' . $this->sqwDebug . ',
+            adblock_modal: ' . $this->sqwAdblockModal . ',
             targeting: ' . $this->sqwTargeting . ',
             beacon: ' . $this->sqwBeacon . ',
             dwide: ' . $this->sqwDwide . ',
@@ -192,7 +195,7 @@ class SQweb {
             msg: "' . $this->sqwMessage . '"};
             var script = document.createElement("script");
             script.type = "text/javascript";
-            script.src = "https://cdn.sqweb.com/sqweb.js";
+            script.src = "https://cdn.multipass.net/multipass.js";
             document.getElementsByTagName("head")[0].appendChild(script);';
     }
     return '';

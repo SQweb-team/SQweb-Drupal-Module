@@ -5,23 +5,23 @@ SQweb Drupal Module
 
 **This Module allows you to easily integrate SQweb on your Drupal powered website.**
 
-##Requirements
+## Requirements
 
 **This Module has been tested with PHP 5.5 and greater and with Drupal 8.22 and greater.**
 
 We are unable to provide official support for earlier versions. For more information about end of life PHP branches, [see this page](http://php.net/supported-versions.php).
 
-##Install
+## Install
 
 Settings your SQweb Website ID and your language on your Drupal administration, on SQweb section.
 
-##Usage
+## Usage
 
-###1. Tagging your pages
+### 1. Tagging your pages
 
 The SQweb script is added to all your pages after you configure your SQweb Website ID (Ref: Install).
 
-###2. Checking the credits of your subscribers
+### 2. Checking the credits of your subscribers
 
 SQweb extends Twig with filters and functions to simplify the use of SQweb within your theme.
 
@@ -29,13 +29,13 @@ Use it like this:
 
 ```php
 {% if sqw_abo() %}
-	//CONTENT
+	// CONTENT
 {% else %}
-	//ADS
+	// ADS
 {% endif %}
 ```
 
-###3. Showing the Multipass button
+### 3. Showing the Multipass button
 
 Finally, use this code to display the Multipass button on your pages:
 
@@ -53,7 +53,7 @@ Here is a complete list of sizes :
 
 ![Example Buttons](https://cdn.multipass.net/github/buttons@2x.png "Example Buttons")
 
-###4. More functions
+### 4. More functions
 
 
 #### Display only a part of your content to non premium users
@@ -104,21 +104,21 @@ For instance, if I want to display only 5 articles to free users:
 {{ 'Your content' | sqw_limitarticle(5) }}
 ```
 
-##Contributing
+## Contributing
 
 We welcome contributions and improvements.
 
-###Coding Style
+### Coding Style
 
 All PHP code must conform to the [Drupal Coding Standards](https://www.drupal.org/docs/develop/standards/coding-standards).
 
-##Bugs and Security Vulnerabilities
+## Bugs and Security Vulnerabilities
 
 If you encounter any bug or unexpected behavior, you can either report it on Github using the bug tracker, or via email at `hello@sqweb.com`. We will be in touch as soon as possible.
 
 If you discover a security vulnerability within SQweb or this plugin, please send an e-mail to `hello@sqweb.com`. All security vulnerabilities will be promptly addressed.
 
-##License
+## License
 
 Copyright (C) 2016 – SQweb
 

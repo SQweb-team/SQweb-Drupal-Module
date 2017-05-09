@@ -33,7 +33,7 @@ class SQwebSettingsForm extends ConfigFormBase {
   }
 
   /**
-   * Build form for SQweb admin on drupal.
+   * Build form for SQweb admin on Drupal.
    *
    * @return form
    *   form admin SQweb
@@ -75,7 +75,7 @@ class SQwebSettingsForm extends ConfigFormBase {
   }
 
   /**
-   * Check if value is good.
+   * Check value.
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
     if (!$form_state->getValue('sqw_id_site')) {
