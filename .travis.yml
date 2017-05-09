@@ -15,9 +15,11 @@ before_script:
   - phpenv rehash
   - phpcs --config-set installed_paths ~/.composer/vendor/drupal/coder/coder_sniffer
   - phpcs -i
+  # Drupal enforces line length on Markdown files, and it seems one cannot override this behavior from the CLI.
+  - rm README.md
 script:
-  - phpcs --standard=Drupal --extensions=php,module,inc,install,test,profile .
-  - phpcs --standard=DrupalPractice --extensions=php,module,inc,install,test,profile .
+  - phpcs --standard=Drupal .
+  - phpcs --standard=DrupalPractice .
 notifications:
   email: false
   slack:
