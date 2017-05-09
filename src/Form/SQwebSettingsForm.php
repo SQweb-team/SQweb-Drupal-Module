@@ -41,7 +41,7 @@ class SQwebSettingsForm extends ConfigFormBase {
   public function buildForm(array $form, FormStateInterface $form_state) {
     $config = $this->config('sqweb.settings');
 
-    $form['sqw_id_site'] = array(
+    $form['sqw_id_site'] = [
       '#type' => 'textfield',
       '#title' => $this->t('ID Site'),
       '#default_value' => $config->get('sqw_id_site'),
@@ -49,9 +49,9 @@ class SQwebSettingsForm extends ConfigFormBase {
       '#maxlength' => 8,
       '#description' => $this->t('The ID site given on SQweb'),
       '#required' => TRUE,
-    );
+    ];
 
-    $form['sqw_lang'] = array(
+    $form['sqw_lang'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Lang'),
       '#default_value' => $config->get('sqw_lang'),
@@ -59,9 +59,9 @@ class SQwebSettingsForm extends ConfigFormBase {
       '#maxlength' => 2,
       '#description' => $this->t('Lang of your website (example : en, fr, es)'),
       '#required' => TRUE,
-    );
+    ];
 
-    $form['sqw_message'] = array(
+    $form['sqw_message'] = [
       '#type' => 'textarea',
       '#title' => $this->t('Message to display at Adblockers'),
       '#default_value' => $config->get('sqw_message'),
@@ -69,7 +69,7 @@ class SQwebSettingsForm extends ConfigFormBase {
       '#maxlength' => 255,
       '#description' => $this->t('That displayed an message to adblockers on bottom of your website, empty if you want disable'),
       '#required' => FALSE,
-    );
+    ];
 
     return parent::buildForm($form, $form_state);
   }

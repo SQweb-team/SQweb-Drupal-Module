@@ -14,17 +14,17 @@ class SQwebExtension extends \Twig_Extension {
    *   Array of Twig_SimpleFunction
    */
   public function getFunctions() {
-    return array(
+    return [
       new \Twig_SimpleFunction('sqw_abo',
-                array('Drupal\sqweb\Lib\SQweb', 'Abo')
+                ['Drupal\sqweb\Lib\SQweb', 'Abo']
                 // Here we are self referencing the function we use.
       ),
       new \Twig_SimpleFunction('sqw_button',
-                    array('Drupal\sqweb\Lib\SQweb', 'Button'),
+                    ['Drupal\sqweb\Lib\SQweb', 'Button'],
                     // Function can display HTML.
-                    array('is_safe' => array('html'))
+                    ['is_safe' => ['html']]
       ),
-    );
+    ];
   }
 
   /**
@@ -34,24 +34,24 @@ class SQwebExtension extends \Twig_Extension {
    *   Array of Twig_SimpleFilter
    */
   public function getFilters() {
-    return array(
+    return [
       new \Twig_SimpleFilter('sqw_waittodisplay',
-                array('Drupal\sqweb\Lib\SQweb', 'waitToDisplay'),
-                array('is_safe' => array('html'))
+                ['Drupal\sqweb\Lib\SQweb', 'waitToDisplay'],
+                ['is_safe' => ['html']]
       ),
       new \Twig_SimpleFilter('sqw_transpartext',
-                array('Drupal\sqweb\Lib\SQweb', 'transpartext'),
-                array('is_safe' => array('html'))
+                ['Drupal\sqweb\Lib\SQweb', 'transpartext'],
+                ['is_safe' => ['html']]
       ),
       new \Twig_SimpleFilter('sqw_limitarticle',
-                array('Drupal\sqweb\Lib\SQweb', 'limitArticle'),
-                array('is_safe' => array('html'))
+                ['Drupal\sqweb\Lib\SQweb', 'limitArticle'],
+                ['is_safe' => ['html']]
       ),
       new \Twig_SimpleFilter('sqw_is_abo',
-                array('Drupal\sqweb\Lib\SQweb', 'isAbo'),
-                array('is_safe' => array('html'))
+                ['Drupal\sqweb\Lib\SQweb', 'isAbo'],
+                ['is_safe' => ['html']]
       ),
-    );
+    ];
   }
 
   /**
